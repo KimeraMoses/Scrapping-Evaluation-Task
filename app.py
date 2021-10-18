@@ -19,12 +19,14 @@ def get_facebook_link(link_list):
         if "facebook" in link:
             return link
 
+company_fb_url =[]
 def clean_link(any_link):
     if(any_link):
         clean_link = re.search("(?P<url>https?://[^\s]+)", any_link).group("url")
         cleaned_link = clean_link.rsplit('/',1)[0]
         clean_url = cleaned_link + "/about"
         print(clean_url)
+        company_fb_url.append(clean_url)
         return clean_url
     else:
         print("failed")
@@ -41,13 +43,20 @@ def main():
     get_companies_from_file()
     for query in querys:
         clean_link(get_facebook_link(get_links_from_google(query)))
-
+    print(company_fb_url)
 
 
 if __name__ == "__main__":
     main()
 
-
+def get_company_email_from_fb():
+    for url in company_fb_url:
+        fb_request_result = requests.get(url)
+        soup = bs4.BeautifulSoup(fb_request_result.text, "html.parser")
+        email = soup.findAll('a', class_="j83agx80")
+        print(email)
+    
+get_company_email_from_fb()
 
 
 
