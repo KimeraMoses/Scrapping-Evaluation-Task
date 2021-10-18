@@ -1,14 +1,14 @@
 import re
 import bs4
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup as Soup
 
-querys = []
+
 
 def get_links_from_google(query):
     url = 'https://google.com/search?q=' + query
     request_result = requests.get(url)
-    soup = bs4.BeautifulSoup(request_result.text, "html.parser")
+    soup = Soup(request_result.text, "html.parser")
     links = []
     for link in soup.findAll('a'):
         links.append(link.get('href'))
@@ -20,9 +20,9 @@ def get_facebook_link(link_list):
             return link
 
 company_fb_url =[]
-def clean_link(any_link):
-    if(any_link):
-        clean_link = re.search("(?P<url>https?://[^\s]+)", any_link).group("url")
+def clean_link(scraped_co_link):
+    if(scraped_co_link):
+        clean_link = re.search("(?P<url>https?://[^\s]+)", scraped_co_link).group("url")
         cleaned_link = clean_link.rsplit('/',1)[0]
         clean_url = cleaned_link + "/about"
         print(clean_url)
@@ -32,6 +32,7 @@ def clean_link(any_link):
         print("failed")
         return
 
+querys = []
 
 def get_companies_from_file():
     with open('company_names.txt') as f:
@@ -52,8 +53,9 @@ if __name__ == "__main__":
 def get_company_email_from_fb():
     for url in company_fb_url:
         fb_request_result = requests.get(url)
-        soup = bs4.BeautifulSoup(fb_request_result.text, "html.parser")
-        email = soup.findAll('a', class_="j83agx80")
+        soup = Soup(fb_request_result.text, "html.parser")
+        email_container = soup.findAll('a', class_="j83agx80")
+        email = email_container.text 
         print(email)
     
 get_company_email_from_fb()

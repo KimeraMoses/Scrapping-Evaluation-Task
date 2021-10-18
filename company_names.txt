@@ -1,10 +1,10 @@
-mtn
+codeBits
+stanbic
+nwsc
+jumia
+airteluganda
 lato milk
 NewVision
 bidco
-codeBits
-kfm
-umeme
 kfc
-jumia
 dailymonitor
