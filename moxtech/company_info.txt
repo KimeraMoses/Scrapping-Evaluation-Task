@@ -1,0 +1,5 @@
+ucc : ucc@ucc.co.ug 
+nita : info@nita.go.ug 
+ursb : ursb@ursb.go.ug 
+unbs : info@unbs.go.ug 
+cedat : principal@CEDAT.mak.ac.ug&bcc=webmaster@CEDAT.mak.ac.ug 
